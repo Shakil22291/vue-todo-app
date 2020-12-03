@@ -18,32 +18,10 @@
         :key="todo.id"
         :todo="todo"
         :index="index"
+        :checkAll="!anyRemaining"
         @removedTodo="removeTodo"
+        @finishedEdit="finishedEdit"
       >
-        <!-- <div class="todo-item-left">
-          <input type="checkbox" v-model="todo.completed" />
-          <div
-            v-if="!todo.editing"
-            @dblclick="editTodo(todo)"
-            class="todo-item-label"
-            :class="{ completed: todo.completed }"
-          >
-            {{ todo.title }}
-          </div>
-          <input
-            v-else
-            class="todo-item-edit-input"
-            type="text"
-            v-model="todo.title"
-            @blur="doneEdit(todo)"
-            @keyup.enter="doneEdit(todo)"
-            v-focus
-            @keyup.esc="cancelEdit(todo)"
-          />
-        </div>
-        <div class="remove-item" @click="removeTodo(index)">
-          <span>&times;</span>
-        </div> -->
       </todo-item>
     </transition-group>
     <div class="extra-container">
@@ -165,26 +143,14 @@ export default {
     removeTodo(index) {
       this.todos.splice(index, 1);
     },
-    editTodo(todo) {
-      this.beforeEditCache = todo.title;
-      todo.editing = true;
-    },
-    doneEdit(todo) {
-      if (todo.title.trim().length === 0) {
-        return;
-      }
-
-      todo.editing = false;
-    },
-    cancelEdit(todo) {
-      todo.title = this.beforeEditCache;
-      todo.editing = false;
-    },
     checkAllTodo(e) {
       this.todos.forEach(todo => (todo.completed = e.target.checked));
     },
     clearCompleted() {
       this.todos = this.todos.filter(todo => !todo.completed);
+    },
+    finishedEdit(data) {
+      this.todos.splice(data.index, 1, data.todo);
     }
   }
 };
