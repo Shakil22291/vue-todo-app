@@ -3,7 +3,7 @@
     <label
       ><input
         type="checkbox"
-        @change="allChecked"
+        @change="checkAll"
         :checked="!anyRemaining"
       />Check All</label
     >
@@ -11,17 +11,17 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
 export default {
   name: "todo-check-all",
-  props: {
-    anyRemaining: {
-      type: Boolean,
-      required: true
-    }
+  computed: {
+    ...mapGetters({
+      anyRemaining: 'anyRemaining'
+    })
   },
   methods: {
-    allChecked() {
-      eventBus.$emit('checkAllChanged', this.anyRemaining);
+    checkAll(e) {
+      this.$store.commit('checkAll', e.target.checked);
     }
   }
 };

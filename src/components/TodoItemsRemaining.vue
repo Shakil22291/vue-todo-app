@@ -1,15 +1,18 @@
 <template>
-  <div>{{ remaining }} items remaining</div>
+  <div>
+    <div v-if="remaining == 0">No items remaining</div>
+    <div v-else>{{ remaining }} items remaining</div>
+  </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "todo-remaining",
-  props: {
-    remaining: {
-      type: Number,
-      required: true
-    }
+  computed: {
+    ...mapGetters({
+      remaining: "remaining"
+    })
   }
 };
 </script>

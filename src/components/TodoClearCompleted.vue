@@ -5,18 +5,18 @@
 </template>
 
 <script>
+import {mapGetters} from "vuex";
 export default {
   name: "todo-clear-completed",
-  props: {
-    showClearCompleted: {
-      type: Boolean,
-      required: true
-    }
+  computed: {
+    ...mapGetters({
+      showClearCompleted: 'showClearCompleted'
+    })
   },
 
   methods: {
     clearCompleted() {
-      eventBus.$emit('clearCompletedTodo');
+      this.$store.commit('clearCompleted')
     }
   }
 };

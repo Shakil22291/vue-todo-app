@@ -23,7 +23,7 @@
     </div>
     <div>
       <button @click="pluralize">pluralize</button>
-      <span class="remove-item" @click="removeTodo(index)">
+      <span class="remove-item" @click="removeTodo(id)">
         <span>&times;</span>
       </span>
     </div>
@@ -74,9 +74,10 @@ export default {
   beforeDestroy() {
     eventBus.$off("pluralize", this.handlePluralize);
   },
+
   methods: {
-    removeTodo(index) {
-      eventBus.$emit("removedTodo", index);
+    removeTodo(id) {
+      this.$store.commit("deleteTodo", id);
     },
     editTodo() {
       this.beforeEditCache = this.title;
@@ -87,15 +88,11 @@ export default {
         return;
       }
       this.editing = false;
-
-      eventBus.$emit("finishedEdit", {
-        index: this.index,
-        todo: {
-          id: this.id,
-          title: this.title,
-          completed: this.completed,
-          editing: this.editing
-        }
+      this.$store.commit("updateTodo", {
+        id: this.id,
+        title: this.title,
+        completed: this.completed,
+        editing: this.editing
       });
     },
     cancelEdit() {

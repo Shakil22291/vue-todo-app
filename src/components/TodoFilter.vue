@@ -19,17 +19,17 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
 export default {
   name: "todo-filter",
-  data() {
-    return {
-      filter: "all"
-    };
+  computed: {
+    ...mapState({
+      filter: 'filter'
+    })
   },
   methods: {
     changeFilter(filter) {
-      this.filter = filter;
-      eventBus.$emit('filterChanged', this.filter);
+      this.$store.commit('updateFilter', filter);
     }
   }
 };
