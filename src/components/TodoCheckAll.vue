@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     checkAll(e) {
-      this.$store.commit('checkAll', e.target.checked);
+      this.$store.dispatch('checkAll', e.target.checked);
     }
   }
 };

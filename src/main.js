@@ -3,8 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import {store} from "./store/index";
+import axios from "axios";
 
 window.eventBus = new Vue();
+axios.defaults.baseURL = "http://127.0.0.1:8000/api"
 
 Vue.config.productionTip = false
 

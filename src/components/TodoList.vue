@@ -60,9 +60,15 @@ export default {
     TodoFilter;
     return {
       newTodo: "",
-      idForTodo: 3,
       beforeEditCache: null
     };
+  },
+
+  created() {
+    this.$store
+      .dispatch("retrieveTodos")
+      .then((response) => console.log(response))
+      .catch((errors) => console.log(errors));
   },
 
   directives: {
@@ -88,12 +94,10 @@ export default {
       }
 
       this.$store.dispatch("addTodo", {
-        id: this.idForTodo,
-        title: this.newTodo,
+        title: this.newTodo
       });
 
       this.newTodo = "";
-      this.idForTodo++;
     }
   }
 };

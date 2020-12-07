@@ -1,25 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import actions from "./actions"
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
     filter: "all",
-    todos: [
-      {
-        id: 1,
-        title: "Finish the task",
-        completed: false,
-        editing: false
-      },
-      {
-        id: 2,
-        title: "do some hello world",
-        completed: true,
-        editing: false
-      }
-    ]
+    todos: []
   },
 
   getters: {
@@ -47,17 +35,15 @@ export const store = new Vuex.Store({
     }
   },
 
-  actions: {
-    addTodo({ commit }, todo) {
-      commit("pushTodo", todo);
-    }
-  },
-
+  actions,
   mutations: {
     pushTodo(state, data) {
       state.todos.push(data);
     },
-    clearCompleted(state) {
+    retrieveTodos(state, todos) {
+      state.todos = todos;
+    },
+    removeCompletedTodos(state) {
       state.todos = state.todos.filter(todo => !todo.completed);
     },
     updateFilter(state, filter) {
@@ -66,7 +52,7 @@ export const store = new Vuex.Store({
     checkAll(state, checked) {
       state.todos.forEach(todo => (todo.completed = checked));
     },
-    deleteTodo(state, id) {
+    removeTodo(state, id) {
       const index = state.todos.findIndex(item => item.id == id);
       state.todos.splice(index, 1);
     },
