@@ -10,7 +10,7 @@
     />
     <transition-group
       name="fade"
-      enter-active-class="animate__animated animate__fadeIn"
+      enter-active-class="animate__animated animate__bounceIn"
       leave-active-class="animate__animated animate__fadeOutDown"
     >
       <todo-item
@@ -67,8 +67,8 @@ export default {
   created() {
     this.$store
       .dispatch("retrieveTodos")
-      .then((response) => console.log(response))
-      .catch((errors) => console.log(errors));
+      .then(response => console.log(response))
+      .catch(errors => console.log(errors));
   },
 
   directives: {
@@ -121,6 +121,8 @@ export default {
   width: 100%;
   align-items: center;
   margin-bottom: 12px;
+}
+.animate__fadeOutDown {
   animation-duration: 0.3s;
 }
 
